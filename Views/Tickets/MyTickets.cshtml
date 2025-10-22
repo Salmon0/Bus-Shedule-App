@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Ticket>
+
+@{
+    ViewData["Title"] = "Мои билеты";
+}
+
+<div class="container mt-4">
+    <h1>@ViewData["Title"]</h1>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info mt-4">
+            У вас пока нет купленных билетов.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive mt-4">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Номер</th>
+                        <th>Маршрут</th>
+                        <th>Дата</th>
+                        <th>Место</th>
+                        <th>Статус</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var ticket in Model)
+                    {
+                        <tr>
+                            <td>@ticket.Id</td>
+                            <td>@ticket.BusRoute.DepartureCity → @ticket.BusRoute.ArrivalCity</td>
+                            <td>@ticket.BusRoute.DepartureTime.ToString("d")</td>
+                            <td>@ticket.SeatNumber</td>
+                            <td>@ticket.Status</td>
+                            <td>
+                                <a asp-action="Details" asp-route-id="@ticket.Id" class="btn btn-info btn-sm">Подробнее</a>
+                                @if (ticket.CanBeCancelled())
+                                {
+                                    <form asp-action="Cancel" method="post" class="d-inline">
+                                        <input type="hidden" name="id" value="@ticket.Id" />
+                                        <button type="submit" class="btn btn-danger btn-sm">Отменить</button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

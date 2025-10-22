@@ -1,0 +1,27 @@
+/* Основные стили для таблиц */
+.table-responsive {
+    margin-top: 20px;
+}
+
+/* Стили для карточек */
+.card {
+    margin-bottom: 20px;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+/* Стили для кнопок */
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+/* Адаптивные стили */
+@media (max-width: 768px) {
+    .card-body dl.row dt {
+        width: 40%;
+    }
+
+    .card-body dl.row dd {
+        width: 60%;
+    }
+}

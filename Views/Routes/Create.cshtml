@@ -1,0 +1,50 @@
+@model BusSheduleApp.Models.BusRoute
+@{
+    ViewData["Title"] = "Создать маршрут";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group mb-2">
+        <label asp-for="DepartureCity"></label>
+        <input asp-for="DepartureCity" class="form-control" />
+        <span asp-validation-for="DepartureCity" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-2">
+        <label asp-for="ArrivalCity"></label>
+        <input asp-for="ArrivalCity" class="form-control" />
+        <span asp-validation-for="ArrivalCity" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-2">
+        <label asp-for="DepartureTime"></label>
+        <input asp-for="DepartureTime" class="form-control" type="datetime-local" />
+        <span asp-validation-for="DepartureTime" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-2">
+        <label asp-for="ArrivalTime"></label>
+        <input asp-for="ArrivalTime" class="form-control" type="datetime-local" />
+        <span asp-validation-for="ArrivalTime" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-2">
+        <label asp-for="Price"></label>
+        <input asp-for="Price" class="form-control" type="number" step="0.01" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-2">
+        <label asp-for="AvailableSeats"></label>
+        <input asp-for="AvailableSeats" class="form-control" type="number" />
+        <span asp-validation-for="AvailableSeats" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-2">
+        <label asp-for="BusNumber"></label>
+        <input asp-for="BusNumber" class="form-control" />
+        <span asp-validation-for="BusNumber" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-success mt-2">Создать</button>
+    <a asp-action="Index" class="btn btn-secondary mt-2">Назад</a>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

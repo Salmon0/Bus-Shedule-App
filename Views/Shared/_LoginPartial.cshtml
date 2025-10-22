@@ -1,0 +1,45 @@
+﻿@* Кастомная аутентификация без Identity *@
+@{
+    var userId = Context.Session.GetInt32("UserId");
+    string userName = null;
+    string userRole = null;
+    if (userId != null)
+    {
+        var db = Context.RequestServices.GetService(typeof(BusSheduleApp.Data.ApplicationDbContext)) as BusSheduleApp.Data.ApplicationDbContext;
+        var user = db?.Users.Find(userId);
+        userName = user?.FirstName ?? "Пользователь";
+        userRole = user?.Role.ToString();
+    }
+}
+<ul class="navbar-nav">
+    @if (userId != null)
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Account" asp-action="Manage" title="Manage">
+                Привет, @userName!
+                @if (userRole == "Admin")
+                {
+                    <span class="badge bg-danger ms-2">Admin</span>
+                }
+                @if (userRole == "User")
+                {
+                    <span class="badge bg-secondary ms-2">User</span>
+                }
+            </a>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-controller="Account" asp-action="Logout" method="post">
+                <button type="submit" class="nav-link btn btn-link text-dark">Выйти</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Регистрация</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Вход</a>
+        </li>
+    }
+</ul>
